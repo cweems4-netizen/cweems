@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)file:///Users/cweems404/Downloads/portfolio-final.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writing Portfolio</title>
+    <style>
+        :root {
+            --primary-blue: #003d99;
+            --bright-blue: #0066cc;
+            --accent-yellow: #ffc107;
+            --accent-red: #d32f2f;
+            --dark-bg: #0f1419;
+            --light-bg: #ffffff;
+            --text-dark: #1a1a1a;
+            --text-light: #555;
+            --border: #e0e0e0;
+            --spacing: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--bright-blue) 100%);
+            color: white;
+            padding: 4rem var(--spacing);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-yellow) 0%, transparent 70%);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-resume {
+            background-color: var(--accent-yellow);
+            color: var(--primary-blue);
+            padding: 0.9rem 1.8rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-resume:hover {
+            background-color: #ffb300;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem var(--spacing);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--primary-blue);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-yellow), var(--accent-red));
+            border-radius: 2px;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .sample-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--light-bg);
+            transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .sample-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 102, 204, 0.15);
+            transform: translateY(-4px);
+            border-left-color: var(--bright-blue);
+        }
+
+        .pdf-preview {
+            width: 100%;
+            height: 240px;
+            background: linear-gradient(135deg, rgba(0, 61, 153, 0.08), rgba(255, 193, 7, 0.08));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid var(--border);
+            position: relative;
+        }
+
+        .pdf-icon {
+            font-size: 3rem;
+            opacity: 0.4;
+        }
+
+        .sample-content {
+            padding: 1.8rem;
+        }
+
+        .sample-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .sample-meta {
+            display: flex;
+            gap: 0.8rem;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-tag {
+            background-color: #f5f5f5;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+        }
+
+        .meta-tag.highlight {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+
+        .sample-description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .sample-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            border: 2px solid var(--bright-blue);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background-color: var(--bright-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-blue);
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--bright-blue);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(0, 102, 204, 0.1);
+        }
+
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 3rem var(--spacing);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--accent-yellow);
+        }
+
+        .footer-section p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .footer-section a {
+            color: var(--accent-yellow);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            opacity: 0.8;
+        }
+
+        .footer-divider {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 2rem;
+            text-align: center;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 2.5rem var(--spacing);
+            }
+
+            main {
+                padding: 2rem var(--spacing);
+            }
+
+            .header-actions {
+                flex-direction: column;
+            }
+
+            .btn-resume {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Writing Portfolio</h1>
+            <p class="tagline">A collection of journalism, communications, and strategic content. Select pieces available for review.</p>
+            <div class="header-actions">
+                <a href="file:///Users/cweems404/Downloads/resume.pdf" class="btn-resume" download="">📄 Download Resume</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h2 class="section-title">Featured Work</h2>
+        <div class="portfolio-grid" id="portfolio"><div class="sample-card">
+                    <div class="pdf-preview">
+                        <div class="pdf-icon">📄</div>
+                    </div>
+                    <div class="sample-content">
+                        <h3>Lorem Ipsum Dolor Sit Amet</h3>
+                        <div class="sample-meta">
+                            <span class="meta-tag">Publication Name</span>
+                            <span class="meta-tag">Month 2026</span>
+                            <span class="meta-tag highlight">Feature</span>
+                        </div>
+                        <p class="sample-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                        <div class="sample-actions">
+                            <a href="file:///Users/cweems404/Downloads/sample-01.pdf" class="btn btn-primary" download="">Download</a>
+                        </div>
+                    </div>
+                </div><div class="sample-card">
+                    <div class="pdf-preview">
+                        <div class="pdf-icon">📄</div>
+                    </div>
+                    <div class="sample-content">
+                        <h3>Consectetur Adipiscing Elit Sed</h3>
+                        <div class="sample-meta">
+                            <span class="meta-tag">Publication Name</span>
+                            <span class="meta-tag">Month 2026</span>
+                            <span class="meta-tag highlight">Analysis</span>
+                        </div>
+                        <p class="sample-description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.</p>
+                        <div class="sample-actions">
+                            <a href="file:///Users/cweems404/Downloads/sample-02.pdf" class="btn btn-primary" download="">Download</a>
+                        </div>
+                    </div>
+                </div><div class="sample-card">
+                    <div class="pdf-preview">
+                        <div class="pdf-icon">📄</div>
+                    </div>
+                    <div class="sample-content">
+                        <h3>Sed Do Eiusmod Tempor Incididunt</h3>
+                        <div class="sample-meta">
+                            <span class="meta-tag">Publication Name</span>
+                            <span class="meta-tag">Month 2026</span>
+                            <span class="meta-tag highlight">Profile</span>
+                        </div>
+                        <p class="sample-description">Ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <div class="sample-actions">
+                            <a href="file:///Users/cweems404/Downloads/sample-03.pdf" class="btn btn-primary" download="">Download</a>
+                        </div>
+                    </div>
+                </div><div class="sample-card">
+                    <div class="pdf-preview">
+                        <div class="pdf-icon">📄</div>
+                    </div>
+                    <div class="sample-content">
+                        <h3>Ut Labore et Dolore Magna Aliqua</h3>
+                        <div class="sample-meta">
+                            <span class="meta-tag">Publication Name</span>
+                            <span class="meta-tag">Month 2026</span>
+                            <span class="meta-tag highlight">News</span>
+                        </div>
+                        <p class="sample-description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <div class="sample-actions">
+                            <a href="file:///Users/cweems404/Downloads/sample-04.pdf" class="btn btn-primary" download="">Download</a>
+                        </div>
+                    </div>
+                </div><div class="sample-card">
+                    <div class="pdf-preview">
+                        <div class="pdf-icon">📄</div>
+                    </div>
+                    <div class="sample-content">
+                        <h3>Quis Nostrud Exercitation Ullamco</h3>
+                        <div class="sample-meta">
+                            <span class="meta-tag">Publication Name</span>
+                            <span class="meta-tag">Month 2026</span>
+                            <span class="meta-tag highlight">Opinion</span>
+                        </div>
+                        <p class="sample-description">Laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
+                        <div class="sample-actions">
+                            <a href="file:///Users/cweems404/Downloads/sample-05.pdf" class="btn btn-primary" download="">Download</a>
+                        </div>
+                    </div>
+                </div><div class="sample-card">
+                    <div class="pdf-preview">
+                        <div class="pdf-icon">📄</div>
+                    </div>
+                    <div class="sample-content">
+                        <h3>Voluptate Velit Esse Cillum Dolore</h3>
+                        <div class="sample-meta">
+                            <span class="meta-tag">Publication Name</span>
+                            <span class="meta-tag">Month 2026</span>
+                            <span class="meta-tag highlight">Feature</span>
+                        </div>
+                        <p class="sample-description">Eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <div class="sample-actions">
+                            <a href="file:///Users/cweems404/Downloads/sample-06.pdf" class="btn btn-primary" download="">Download</a>
+                        </div>
+                    </div>
+                </div><div class="sample-card">
+                    <div class="pdf-preview">
+                        <div class="pdf-icon">📄</div>
+                    </div>
+                    <div class="sample-content">
+                        <h3>Excepteur Sint Occaecat Cupidatat</h3>
+                        <div class="sample-meta">
+                            <span class="meta-tag">Publication Name</span>
+                            <span class="meta-tag">Month 2026</span>
+                            <span class="meta-tag highlight">Analysis</span>
+                        </div>
+                        <p class="sample-description">Non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
+                        <div class="sample-actions">
+                            <a href="file:///Users/cweems404/Downloads/sample-07.pdf" class="btn btn-primary" download="">Download</a>
+                        </div>
+                    </div>
+                </div><div class="sample-card">
+                    <div class="pdf-preview">
+                        <div class="pdf-icon">📄</div>
+                    </div>
+                    <div class="sample-content">
+                        <h3>Mollit Anim Id Est Laborum Sed</h3>
+                        <div class="sample-meta">
+                            <span class="meta-tag">Publication Name</span>
+                            <span class="meta-tag">Month 2026</span>
+                            <span class="meta-tag highlight">Profile</span>
+                        </div>
+                        <p class="sample-description">Ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo.</p>
+                        <div class="sample-actions">
+                            <a href="file:///Users/cweems404/Downloads/sample-08.pdf" class="btn btn-primary" download="">Download</a>
+                        </div>
+                    </div>
+                </div><div class="sample-card">
+                    <div class="pdf-preview">
+                        <div class="pdf-icon">📄</div>
+                    </div>
+                    <div class="sample-content">
+                        <h3>Perspiciatis Unde Omnis Iste Natus</h3>
+                        <div class="sample-meta">
+                            <span class="meta-tag">Publication Name</span>
+                            <span class="meta-tag">Month 2026</span>
+                            <span class="meta-tag highlight">News</span>
+                        </div>
+                        <p class="sample-description">Error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto.</p>
+                        <div class="sample-actions">
+                            <a href="file:///Users/cweems404/Downloads/sample-09.pdf" class="btn btn-primary" download="">Download</a>
+                        </div>
+                    </div>
+                </div><div class="sample-card">
+                    <div class="pdf-preview">
+                        <div class="pdf-icon">📄</div>
+                    </div>
+                    <div class="sample-content">
+                        <h3>Natus Error Sit Voluptatem Accusantium</h3>
+                        <div class="sample-meta">
+                            <span class="meta-tag">Publication Name</span>
+                            <span class="meta-tag">Month 2026</span>
+                            <span class="meta-tag highlight">Opinion</span>
+                        </div>
+                        <p class="sample-description">Doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                        <div class="sample-actions">
+                            <a href="file:///Users/cweems404/Downloads/sample-10.pdf" class="btn btn-primary" download="">Download</a>
+                        </div>
+                    </div>
+                </div><div class="sample-card">
+                    <div class="pdf-preview">
+                        <div class="pdf-icon">📄</div>
+                    </div>
+                    <div class="sample-content">
+                        <h3>Doloremque Laudantium Totam Rem Aperiam</h3>
+                        <div class="sample-meta">
+                            <span class="meta-tag">Publication Name</span>
+                            <span class="meta-tag">Month 2026</span>
+                            <span class="meta-tag highlight">Feature</span>
+                        </div>
+                        <p class="sample-description">Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas.</p>
+                        <div class="sample-actions">
+                            <a href="file:///Users/cweems404/Downloads/sample-11.pdf" class="btn btn-primary" download="">Download</a>
+                        </div>
+                    </div>
+                </div><div class="sample-card">
+                    <div class="pdf-preview">
+                        <div class="pdf-icon">📄</div>
+                    </div>
+                    <div class="sample-content">
+                        <h3>Eaque Ipsa Quae Ab Illo Inventore</h3>
+                        <div class="sample-meta">
+                            <span class="meta-tag">Publication Name</span>
+                            <span class="meta-tag">Month 2026</span>
+                            <span class="meta-tag highlight">Analysis</span>
+                        </div>
+                        <p class="sample-description">Veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
+                        <div class="sample-actions">
+                            <a href="file:///Users/cweems404/Downloads/sample-12.pdf" class="btn btn-primary" download="">Download</a>
+                        </div>
+                    </div>
+                </div></div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: <a href="mailto:contact@example.com">contact@example.com</a></p>
+                <p>Phone: (404) 555-0100</p>
+                <p>Location: Atlanta, Georgia</p>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <p><a href="file:///Users/cweems404/Downloads/portfolio-final.html#">LinkedIn</a></p>
+                <p><a href="file:///Users/cweems404/Downloads/portfolio-final.html#">Twitter</a></p>
+                <p><a href="file:///Users/cweems404/Downloads/portfolio-final.html#">Website</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Expertise</h4>
+                <p>Long-form journalism</p>
+                <p>Communications strategy</p>
+                <p>Research and analysis</p>
+            </div>
+        </div>
+        <div class="footer-divider">
+            <p>© 2026. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // CUSTOMIZE THIS ARRAY WITH YOUR OWN TITLES AND DESCRIPTIONS
+        const samples = [
+            {
+                title: "Lorem Ipsum Dolor Sit Amet",
+                organization: "Publication Name",
+                date: "Month 2026",
+                category: "Feature",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
+                pdfUrl: "sample-01.pdf"
+            },
+            {
+                title: "Consectetur Adipiscing Elit Sed",
+                organization: "Publication Name",
+                date: "Month 2026",
+                category: "Analysis",
+                description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.",
+                pdfUrl: "sample-02.pdf"
+            },
+            {
+                title: "Sed Do Eiusmod Tempor Incididunt",
+                organization: "Publication Name",
+                date: "Month 2026",
+                category: "Profile",
+                description: "Ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                pdfUrl: "sample-03.pdf"
+            },
+            {
+                title: "Ut Labore et Dolore Magna Aliqua",
+                organization: "Publication Name",
+                date: "Month 2026",
+                category: "News",
+                description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                pdfUrl: "sample-04.pdf"
+            },
+            {
+                title: "Quis Nostrud Exercitation Ullamco",
+                organization: "Publication Name",
+                date: "Month 2026",
+                category: "Opinion",
+                description: "Laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.",
+                pdfUrl: "sample-05.pdf"
+            },
+            {
+                title: "Voluptate Velit Esse Cillum Dolore",
+                organization: "Publication Name",
+                date: "Month 2026",
+                category: "Feature",
+                description: "Eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                pdfUrl: "sample-06.pdf"
+            },
+            {
+                title: "Excepteur Sint Occaecat Cupidatat",
+                organization: "Publication Name",
+                date: "Month 2026",
+                category: "Analysis",
+                description: "Non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem.",
+                pdfUrl: "sample-07.pdf"
+            },
+            {
+                title: "Mollit Anim Id Est Laborum Sed",
+                organization: "Publication Name",
+                date: "Month 2026",
+                category: "Profile",
+                description: "Ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo.",
+                pdfUrl: "sample-08.pdf"
+            },
+            {
+                title: "Perspiciatis Unde Omnis Iste Natus",
+                organization: "Publication Name",
+                date: "Month 2026",
+                category: "News",
+                description: "Error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto.",
+                pdfUrl: "sample-09.pdf"
+            },
+            {
+                title: "Natus Error Sit Voluptatem Accusantium",
+                organization: "Publication Name",
+                date: "Month 2026",
+                category: "Opinion",
+                description: "Doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+                pdfUrl: "sample-10.pdf"
+            },
+            {
+                title: "Doloremque Laudantium Totam Rem Aperiam",
+                organization: "Publication Name",
+                date: "Month 2026",
+                category: "Feature",
+                description: "Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas.",
+                pdfUrl: "sample-11.pdf"
+            },
+            {
+                title: "Eaque Ipsa Quae Ab Illo Inventore",
+                organization: "Publication Name",
+                date: "Month 2026",
+                category: "Analysis",
+                description: "Veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
+                pdfUrl: "sample-12.pdf"
+            }
+        ];
+
+        function renderPortfolio() {
+            const portfolio = document.getElementById('portfolio');
+            
+            samples.forEach((sample, index) => {
+                const card = document.createElement('div');
+                card.className = 'sample-card';
+                
+                card.innerHTML = `
+                    <div class="pdf-preview">
+                        <div class="pdf-icon">📄</div>
+                    </div>
+                    <div class="sample-content">
+                        <h3>${sample.title}</h3>
+                        <div class="sample-meta">
+                            <span class="meta-tag">${sample.organization}</span>
+                            <span class="meta-tag">${sample.date}</span>
+                            <span class="meta-tag highlight">${sample.category}</span>
+                        </div>
+                        <p class="sample-description">${sample.description}</p>
+                        <div class="sample-actions">
+                            <a href="${sample.pdfUrl}" class="btn btn-primary" download>Download</a>
+                        </div>
+                    </div>
+                `;
+                
+                portfolio.appendChild(card);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', renderPortfolio);
+    </script>
+
+</body></html>
